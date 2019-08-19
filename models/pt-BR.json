@@ -1,0 +1,108 @@
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "jogo da tabuada",
+            "intents": [
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": [
+                        "cancelar o jogo",
+                        "cancele",
+                        "cancelar jogo",
+                        "cancelar"
+                    ]
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": [
+                        "diga as instruções",
+                        "fale as instruções",
+                        "quero ajuda",
+                        "ajuda"
+                    ]
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": [
+                        "não",
+                        "pare com o jogo",
+                        "pare o jogo",
+                        "pare",
+                        "sair do jogo",
+                        "sair"
+                    ]
+                },
+                {
+                    "name": "AMAZON.NavigateHomeIntent",
+                    "samples": [
+                        "abre jogo da tabuada",
+                        "abri jogo da tabuada",
+                        "abra jogo da tabuada",
+                        "abre o jogo da tabuada",
+                        "abri o jogo da tabuada",
+                        "abra o jogo da tabuada"
+                    ]
+                },
+                {
+                    "name": "IniciaJogo",
+                    "slots": [],
+                    "samples": [
+                        "yes",
+                        "quero",
+                        "sim",
+                        "inicie",
+                        "inicie o jogo",
+                        "pode começar o jogo",
+                        "comece o jogo",
+                        "começar",
+                        "quero iniciar o jogo",
+                        "iniciar jogo"
+                    ]
+                },
+                {
+                    "name": "DefineJogadorUm",
+                    "slots": [
+                        {
+                            "name": "primeiro_jogador",
+                            "type": "AMAZON.FirstName"
+                        }
+                    ],
+                    "samples": [
+                        "o primeiro jogador se chama {primeiro_jogador}",
+                        "o nome do primeiro jogador é {primeiro_jogador}",
+                        "o nome dele é {primeiro_jogador}",
+                        "{primeiro_jogador}"
+                    ]
+                },
+                {
+                    "name": "DefineJogadorDois",
+                    "slots": [
+                        {
+                            "name": "segundo_jogador",
+                            "type": "AMAZON.FirstName"
+                        }
+                    ],
+                    "samples": [
+                        "o segundo jogador se chama {segundo_jogador}",
+                        "o nome do segundo jogador é {segundo_jogador}",
+                        "o nome dele é {segundo_jogador}",
+                        "{segundo_jogador}"
+                    ]
+                },
+                {
+                    "name": "DefineResposta",
+                    "slots": [
+                        {
+                            "name": "resposta",
+                            "type": "AMAZON.NUMBER"
+                        }
+                    ],
+                    "samples": [
+                        "{resposta}"
+                    ]
+                }
+            ],
+            "types": []
+        }
+    }
+}

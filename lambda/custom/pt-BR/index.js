@@ -312,7 +312,7 @@ const DefineResposta = {
 		
 		return handlerInput.responseBuilder
 			.speak(RESULTADO + b200ms + messages.PERGUNTA_TABUADA.format(proximo_jogador, multiplicando, multiplicador))
-			.reprompt(messages.NAO_ENTENDI)
+			.reprompt(messages.NAO_ENTENDI + b200ms + messages.PERGUNTA_TABUADA.format(proximo_jogador, multiplicando, multiplicador))
 			.getResponse();
 	}
 };

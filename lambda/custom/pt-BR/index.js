@@ -88,12 +88,20 @@ const IniciaJogoHandler = {
 				.getResponse();
 		}
 		catch(e) {
-			console.log(e);
-			console.log(handlerInput);
+			var TEXTO_FALA = messages.NAO_ENTENDI;
+
+			// Verifica se o jogo já está rodando.
+			if(typeof(sessionAttributes.contador_perguntas) !== 'undefined') {
+				TEXTO_FALA += b200ms + messages.PERGUNTA_TABUADA.format(sessionAttributes.jogador_atual, sessionAttributes.multiplicando, sessionAttributes.multiplicador);
+			}
+			else {
+				console.log(e);
+				console.log(handlerInput);
+			}
 			
 			return handlerInput.responseBuilder
-				.speak(messages.NAO_ENTENDI)
-				.reprompt(messages.NAO_ENTENDI)
+				.speak(TEXTO_FALA)
+				.reprompt(TEXTO_FALA)
 				.getResponse();
 		}
 	}
@@ -122,12 +130,20 @@ const DefineJogadorUmHandler = {
 				.getResponse();
 		}
 		catch(e) {
-			console.log(e);
-			console.log(handlerInput);
+			var TEXTO_FALA = messages.NAO_ENTENDI;
+
+			// Verifica se o jogo já está rodando.
+			if(typeof(sessionAttributes.contador_perguntas) !== 'undefined') {
+				TEXTO_FALA += b200ms + messages.PERGUNTA_TABUADA.format(sessionAttributes.jogador_atual, sessionAttributes.multiplicando, sessionAttributes.multiplicador);
+			}
+			else {
+				console.log(e);
+				console.log(handlerInput);
+			}
 			
 			return handlerInput.responseBuilder
-				.speak(messages.NAO_ENTENDI)
-				.reprompt(messages.NAO_ENTENDI)
+				.speak(TEXTO_FALA)
+				.reprompt(TEXTO_FALA)
 				.getResponse();
 		}
 	}
@@ -192,12 +208,20 @@ const DefineJogadorDoisHandler = {
 				.getResponse();
 		}
 		catch(e) {
-			console.log(e);
-			console.log(handlerInput);
+			var TEXTO_FALA = messages.NAO_ENTENDI;
+
+			// Verifica se o jogo já está rodando.
+			if(typeof(sessionAttributes.contador_perguntas) !== 'undefined') {
+				TEXTO_FALA += b200ms + messages.PERGUNTA_TABUADA.format(sessionAttributes.jogador_atual, sessionAttributes.multiplicando, sessionAttributes.multiplicador);
+			}
+			else {
+				console.log(e);
+				console.log(handlerInput);
+			}
 			
 			return handlerInput.responseBuilder
-				.speak(messages.NAO_ENTENDI)
-				.reprompt(messages.NAO_ENTENDI)
+				.speak(TEXTO_FALA)
+				.reprompt(TEXTO_FALA)
 				.getResponse();
 		}
 	}
@@ -313,12 +337,20 @@ const HelpIntentHandler = {
 				.getResponse();
 		}
 		catch(e) {
-			console.log(e);
-			console.log(handlerInput);
+			var TEXTO_FALA = messages.NAO_ENTENDI;
+
+			// Verifica se o jogo já está rodando.
+			if(typeof(sessionAttributes.contador_perguntas) !== 'undefined') {
+				TEXTO_FALA += b200ms + messages.PERGUNTA_TABUADA.format(sessionAttributes.jogador_atual, sessionAttributes.multiplicando, sessionAttributes.multiplicador);
+			}
+			else {
+				console.log(e);
+				console.log(handlerInput);
+			}
 			
 			return handlerInput.responseBuilder
-				.speak(messages.NAO_ENTENDI)
-				.reprompt(messages.NAO_ENTENDI)
+				.speak(TEXTO_FALA)
+				.reprompt(TEXTO_FALA)
 				.getResponse();
 		}
 	}
@@ -357,9 +389,17 @@ const ErrorHandler = {
 	handle(handlerInput, error) {
 		console.log(`Erro do manipulador: ${error.message}`);
 
+		const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+		var TEXTO_FALA = messages.NAO_ENTENDI;
+
+		// Verifica se o jogo já está rodando.
+		if(typeof(sessionAttributes.contador_perguntas) !== 'undefined') {
+			TEXTO_FALA += b200ms + messages.PERGUNTA_TABUADA.format(sessionAttributes.jogador_atual, sessionAttributes.multiplicando, sessionAttributes.multiplicador);
+		}
+
 		return handlerInput.responseBuilder
-			.speak(messages.NAO_ENTENDI)
-			.reprompt(messages.NAO_ENTENDI)
+			.speak(TEXTO_FALA)
+			.reprompt(TEXTO_FALA)
 			.getResponse();
 	},
 };

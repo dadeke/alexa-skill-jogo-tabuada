@@ -1,6 +1,6 @@
 {
   "name": "jogo-da-tabuada",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "A skill que você joga e aprende a tabuada.",
   "main": "index.js",
   "scripts": {

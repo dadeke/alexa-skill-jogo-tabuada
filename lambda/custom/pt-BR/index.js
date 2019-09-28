@@ -13,7 +13,7 @@ const messages = {
 	APRESENTA_COMECA: 'O primeiro jogador é {0} e o segundo jogador é {1}. O primeiro jogador começa o jogo. Então vamos lá!',
 	PERGUNTA_TABUADA: '{0} quanto é' + b200ms + '{1} vezes {2}?',
 	CERTA_RESPOSTA: 'Certa resposta!',
-	RESPOSTA_ERRADA: 'Resposta errada! {0} vezes {1} é {2}',
+	RESPOSTA_ERRADA: 'Resposta errada! {0} vezes {1} é igual a {2}',
 	FIM_RESULTADO: 'O jogo terminou. O jogador {0} acertou {1} e errou {2}' + b200ms + 'o jogador {3} acertou {4} e errou {5}. ', 
 	FIM_VENCEDOR: '{0} parabéns! Você ganhou! Até mais!',
 	FIM_EMPATE_PARABENS: 'O jogo ficou empatado! Todos acertaram! Parabéns aos jogadores! Até mais!',
@@ -21,7 +21,7 @@ const messages = {
 	INSTRUCOES: 'O jogo da tabuada deve ser disputado por dois jogadores. Cada jogador deverá responder o resultado de {0} multiplicações. O jogador que acertar mais respostas, vence o jogo.' + b200ms + 'Quer iniciar o jogo agora?',
 	PERGUNTA_INICIAR: 'Quer iniciar o jogo?',
 	TUDO_BEM: 'Tudo bem.',
-	NAO_ENTENDI: 'Desculpe, não consegui entender. Por favor, diga novamente.'
+	NAO_ENTENDI: 'Desculpe, não consegui entender. Por favor, fale novamente.'
 }
 
 // Define a quantidade total de perguntas do jogo. Deve ser sempre um número par.

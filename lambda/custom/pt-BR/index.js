@@ -213,10 +213,10 @@ const DefineJogadorDoisHandler = {
 		
 			return handlerInput.responseBuilder
 				.speak(messages.APRESENTA_COMECA.format(sessionAttributes.primeiro_jogador,
-														sessionAttributes.segundo_jogador)
+						sessionAttributes.segundo_jogador)
 					+ b200ms + messages.PERGUNTA_TABUADA.format(sessionAttributes.primeiro_jogador,
-														multiplicando,
-														multiplicador))
+						multiplicando,
+						multiplicador))
 				.reprompt(messages.NAO_ENTENDI)
 				.getResponse();
 		}
@@ -302,11 +302,12 @@ const DefineResposta = {
 		}
 		else if(sessionAttributes.contador_perguntas >= QTD_PERGUNTA) { // Fala o resultado final e encerra o jogo.
 			var FRASE_FINAL = messages.FIM_RESULTADO.format(sessionAttributes.primeiro_jogador,
-															sessionAttributes.primeiro_acertou,
-															sessionAttributes.primeiro_errou,
-															sessionAttributes.segundo_jogador,
-															sessionAttributes.segundo_acertou,
-															sessionAttributes.segundo_errou);
+				sessionAttributes.primeiro_acertou,
+				sessionAttributes.primeiro_errou,
+				sessionAttributes.segundo_jogador,
+				sessionAttributes.segundo_acertou,
+				sessionAttributes.segundo_errou);
+
 			if(sessionAttributes.primeiro_acertou > sessionAttributes.segundo_acertou) {
 				FRASE_FINAL += messages.FIM_VENCEDOR.format(sessionAttributes.primeiro_jogador);
 			}

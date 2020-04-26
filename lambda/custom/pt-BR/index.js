@@ -10,15 +10,19 @@ const messages = {
 	BEM_VINDO: 'Bem vindo ao Jogo da Tabuada! Quer iniciar o jogo?' + b200ms + 'Ou quer que eu fale as instruções?',
 	PERGUNTA_JOGADOR1: 'Qual é o nome do primeiro jogador?',
 	PERGUNTA_JOGADOR2: 'Qual é o nome do segundo jogador?',
-	APRESENTA_COMECA: 'O primeiro jogador é {0} e o segundo jogador é {1}. O primeiro jogador começa o jogo. Então vamos lá!',
+	APRESENTA_COMECA: 'O primeiro jogador é {0} e o segundo jogador é {1}. O primeiro jogador começa o jogo. '
+	 + 'Então vamos lá!',
 	PERGUNTA_TABUADA: '{0} quanto é' + b200ms + '{1} vezes {2}?',
 	CERTA_RESPOSTA: 'Certa resposta!',
 	RESPOSTA_ERRADA: 'Resposta errada! {0} vezes {1} é igual a {2}',
-	FIM_RESULTADO: 'O jogo terminou. O jogador {0} acertou {1} e errou {2}' + b200ms + 'o jogador {3} acertou {4} e errou {5}. ', 
+	FIM_RESULTADO: 'O jogo terminou. O jogador {0} acertou {1} e errou {2}' + b200ms
+		+ 'o jogador {3} acertou {4} e errou {5}. ',
 	FIM_VENCEDOR: '{0} parabéns! Você ganhou! Até mais!',
 	FIM_EMPATE_PARABENS: 'O jogo ficou empatado! Todos acertaram! Parabéns aos jogadores! Até mais!',
 	FIM_EMPATE: 'O jogo ficou empatado! Até mais!',
-	INSTRUCOES: 'O jogo da tabuada deve ser disputado por dois jogadores. Cada jogador deverá responder o resultado de {0} multiplicações. O jogador que acertar mais respostas, vence o jogo.' + b200ms + 'Quer iniciar o jogo agora?',
+	INSTRUCOES: 'O jogo da tabuada deve ser disputado por dois jogadores. '
+		+ 'Cada jogador deverá responder o resultado de {0} multiplicações. '
+		+ 'O jogador que acertar mais respostas, vence o jogo.' + b200ms + 'Quer iniciar o jogo agora?',
 	PERGUNTA_INICIAR: 'Quer iniciar o jogo?',
 	TUDO_BEM: 'Tudo bem.',
 	NAO_ENTENDI: 'Desculpe, não consegui entender. Por favor, fale novamente.'
@@ -27,7 +31,7 @@ const messages = {
 // Define a quantidade total de perguntas do jogo. Deve ser sempre um número par.
 const QTD_PERGUNTA = 20;
 
-/*
+/**
  * Formata string.
  * Equivalente ao "printf()" C/PHP ou ao "String.Format()" para programadores C#/Java.
  */
@@ -83,7 +87,11 @@ const IniciaJogoHandler = {
 
 			// Verifica se o jogo já está rodando.
 			if(typeof(sessionAttributes.contador_perguntas) !== 'undefined') {
-				TEXTO_FALA += b200ms + messages.PERGUNTA_TABUADA.format(sessionAttributes.jogador_atual, sessionAttributes.multiplicando, sessionAttributes.multiplicador);
+				TEXTO_FALA += b200ms + messages.PERGUNTA_TABUADA.format(
+					sessionAttributes.jogador_atual,
+					sessionAttributes.multiplicando,
+					sessionAttributes.multiplicador
+				);
 			}
 			else {
 				console.log(e);
@@ -128,7 +136,11 @@ const DefineJogadorUmHandler = {
 
 			// Verifica se o jogo já está rodando.
 			if(typeof(sessionAttributes.contador_perguntas) !== 'undefined') {
-				TEXTO_FALA += b200ms + messages.PERGUNTA_TABUADA.format(sessionAttributes.jogador_atual, sessionAttributes.multiplicando, sessionAttributes.multiplicador);
+				TEXTO_FALA += b200ms + messages.PERGUNTA_TABUADA.format(
+					sessionAttributes.jogador_atual,
+					sessionAttributes.multiplicando,
+					sessionAttributes.multiplicador
+				);
 			}
 			else {
 				console.log(e);
@@ -159,8 +171,9 @@ const DefineJogadorDoisHandler = {
 				throw new Error('O jogo já está rodando. Não entrar na intenção "DefineJogadorDois" nesse momento.');
 			}
 			
-			/*
-			 * Caso o nome do primeiro jogador não esteja definido: define o nome do primeiro jogador e pergunta o nome do segundo jogador.
+			/**
+			 * Caso o nome do primeiro jogador não esteja definido: define o nome do primeiro jogador 
+			 * e pergunta o nome do segundo jogador.
 			 * Caso o nome do primeiro jogador já esteja definido: define o nome do segundo jogador.
 			 */
 			if(typeof(sessionAttributes.primeiro_jogador) === 'undefined') {
@@ -212,7 +225,11 @@ const DefineJogadorDoisHandler = {
 
 			// Verifica se o jogo já está rodando.
 			if(typeof(sessionAttributes.contador_perguntas) !== 'undefined') {
-				TEXTO_FALA += b200ms + messages.PERGUNTA_TABUADA.format(sessionAttributes.jogador_atual, sessionAttributes.multiplicando, sessionAttributes.multiplicador);
+				TEXTO_FALA += b200ms + messages.PERGUNTA_TABUADA.format(
+					sessionAttributes.jogador_atual,
+					sessionAttributes.multiplicando,
+					sessionAttributes.multiplicador
+				);
 			}
 			else {
 				console.log(e);
@@ -248,7 +265,11 @@ const DefineResposta = {
 			RESULTADO = messages.CERTA_RESPOSTA;
 		}
 		else{
-			RESULTADO = messages.RESPOSTA_ERRADA.format(sessionAttributes.multiplicando, sessionAttributes.multiplicador, produto.toString());
+			RESULTADO = messages.RESPOSTA_ERRADA.format(
+				sessionAttributes.multiplicando,
+				sessionAttributes.multiplicador,
+				produto.toString()
+			);
 		}
 		
 		// Salva o resultado do jogador anterior e verifica o próximo jogador.
@@ -318,7 +339,8 @@ const DefineResposta = {
 		
 		return handlerInput.responseBuilder
 			.speak(RESULTADO + b200ms + messages.PERGUNTA_TABUADA.format(proximo_jogador, multiplicando, multiplicador))
-			.reprompt(messages.NAO_ENTENDI + b200ms + messages.PERGUNTA_TABUADA.format(proximo_jogador, multiplicando, multiplicador))
+			.reprompt(messages.NAO_ENTENDI + b200ms
+				+ messages.PERGUNTA_TABUADA.format(proximo_jogador, multiplicando, multiplicador))
 			.getResponse();
 	}
 };
@@ -347,7 +369,11 @@ const HelpIntentHandler = {
 
 			// Verifica se o jogo já está rodando.
 			if(typeof(sessionAttributes.contador_perguntas) !== 'undefined') {
-				TEXTO_FALA += b200ms + messages.PERGUNTA_TABUADA.format(sessionAttributes.jogador_atual, sessionAttributes.multiplicando, sessionAttributes.multiplicador);
+				TEXTO_FALA += b200ms + messages.PERGUNTA_TABUADA.format(
+					sessionAttributes.jogador_atual,
+					sessionAttributes.multiplicando,
+					sessionAttributes.multiplicador
+				);
 			}
 			else {
 				console.log(e);
@@ -400,7 +426,11 @@ const ErrorHandler = {
 
 		// Verifica se o jogo já está rodando.
 		if(typeof(sessionAttributes.contador_perguntas) !== 'undefined') {
-			TEXTO_FALA += b200ms + messages.PERGUNTA_TABUADA.format(sessionAttributes.jogador_atual, sessionAttributes.multiplicando, sessionAttributes.multiplicador);
+			TEXTO_FALA += b200ms + messages.PERGUNTA_TABUADA.format(
+				sessionAttributes.jogador_atual,
+				sessionAttributes.multiplicando,
+				sessionAttributes.multiplicador
+			);
 		}
 
 		return handlerInput.responseBuilder

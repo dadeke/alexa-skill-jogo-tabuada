@@ -38,16 +38,7 @@ String.prototype.format = function() {
 	});
 }
 
-/*
- * Salva as variáveis de sessão.
- */
-function saveSessionAttribute(sessionAttributes, handlerInput, name, value) {
-	sessionAttributes[name] = value;
-	handlerInput.attributesManager.setPersistentAttributes(sessionAttributes);
-	handlerInput.attributesManager.savePersistentAttributes();
-}
-
-/*
+/**
  * Retorna um número randômico de 0 até 10.
  */
 function getNumberRand() {
@@ -112,8 +103,8 @@ const DefineJogadorUmHandler = {
 		return handlerInput.requestEnvelope.request.type === 'IntentRequest'
 			&& handlerInput.requestEnvelope.request.intent.name === 'DefineJogadorUm';
 	},
-	handle(handlerInput) {
-		const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+	async handle(handlerInput) {
+		let sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
 		
 		try {
 			// Verifica se o jogo já está rodando.
@@ -121,8 +112,11 @@ const DefineJogadorUmHandler = {
 				throw new Error('O jogo já está rodando. Não entrar na intenção "DefineJogadorUm" nesse momento.');
 			}
 			
-			saveSessionAttribute(sessionAttributes, handlerInput, 'primeiro_jogador', handlerInput.requestEnvelope.request.intent.slots.primeiro_jogador.value);
-			
+			sessionAttributes.primeiro_jogador = handlerInput.requestEnvelope.request.intent.slots.primeiro_jogador.value;
+
+			handlerInput.attributesManager.setPersistentAttributes(sessionAttributes);
+			await handlerInput.attributesManager.savePersistentAttributes();
+
 			return handlerInput.responseBuilder
 				.speak(messages.PERGUNTA_JOGADOR2)
 				.reprompt(messages.NAO_ENTENDI)
@@ -154,10 +148,10 @@ const DefineJogadorDoisHandler = {
 		return handlerInput.requestEnvelope.request.type === 'IntentRequest'
 			&& handlerInput.requestEnvelope.request.intent.name === 'DefineJogadorDois';
 	},
-	handle(handlerInput) {
+	async handle(handlerInput) {
 		var multiplicando = getNumberRand();
 		var multiplicador = getNumberRand();
-		const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+		let sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
 		
 		try {
 			// Verifica se o jogo já está rodando.
@@ -170,8 +164,11 @@ const DefineJogadorDoisHandler = {
 			 * Caso o nome do primeiro jogador já esteja definido: define o nome do segundo jogador.
 			 */
 			if(typeof(sessionAttributes.primeiro_jogador) === 'undefined') {
-				saveSessionAttribute(sessionAttributes, handlerInput, 'primeiro_jogador', handlerInput.requestEnvelope.request.intent.slots.segundo_jogador.value);
-				
+				sessionAttributes.primeiro_jogador = handlerInput.requestEnvelope.request.intent.slots.segundo_jogador.value;
+
+				handlerInput.attributesManager.setPersistentAttributes(sessionAttributes);
+				await handlerInput.attributesManager.savePersistentAttributes();
+
 				return handlerInput.responseBuilder
 					.speak(messages.PERGUNTA_JOGADOR2)
 					.reprompt(messages.NAO_ENTENDI)
@@ -179,24 +176,27 @@ const DefineJogadorDoisHandler = {
 					.getResponse();
 			}
 			else {
-				saveSessionAttribute(sessionAttributes, handlerInput, 'segundo_jogador', handlerInput.requestEnvelope.request.intent.slots.segundo_jogador.value);
+				sessionAttributes.segundo_jogador = handlerInput.requestEnvelope.request.intent.slots.segundo_jogador.value;
 			}
 			
 			// Salva o nome do primeiro jogador como jogador atual.
-			saveSessionAttribute(sessionAttributes, handlerInput, 'jogador_atual', sessionAttributes.primeiro_jogador);
+			sessionAttributes.jogador_atual = sessionAttributes.primeiro_jogador;
 			
 			// Inicializa a tabela de resultados.
-			saveSessionAttribute(sessionAttributes, handlerInput, 'primeiro_acertou', 0);
-			saveSessionAttribute(sessionAttributes, handlerInput, 'primeiro_errou', 0);
-			saveSessionAttribute(sessionAttributes, handlerInput, 'segundo_acertou', 0);
-			saveSessionAttribute(sessionAttributes, handlerInput, 'segundo_errou', 0);
+			sessionAttributes.primeiro_acertou = 0;
+			sessionAttributes.primeiro_errou = 0;
+			sessionAttributes.segundo_acertou = 0;
+			sessionAttributes.segundo_errou = 0;
 			
 			// Salva o multiplicando e o multiplicador da pergunta atual.
-			saveSessionAttribute(sessionAttributes, handlerInput, 'multiplicando', multiplicando);
-			saveSessionAttribute(sessionAttributes, handlerInput, 'multiplicador', multiplicador);
+			sessionAttributes.multiplicando = multiplicando;
+			sessionAttributes.multiplicador = multiplicador;
 			
 			// Inicializa o contador de perguntas realizadas.
-			saveSessionAttribute(sessionAttributes, handlerInput, 'contador_perguntas', 1);
+			sessionAttributes.contador_perguntas = 1;
+
+			handlerInput.attributesManager.setPersistentAttributes(sessionAttributes);
+			await handlerInput.attributesManager.savePersistentAttributes();
 		
 			return handlerInput.responseBuilder
 				.speak(messages.APRESENTA_COMECA.format(sessionAttributes.primeiro_jogador,
@@ -232,14 +232,14 @@ const DefineResposta = {
 		return handlerInput.requestEnvelope.request.type === 'IntentRequest'
 			&& handlerInput.requestEnvelope.request.intent.name === 'DefineResposta';
 	},
-	handle(handlerInput) {
+	async handle(handlerInput) {
 		var proximo_jogador = null;
 		var resposta = null;
 		var produto = null;
 		var RESULTADO = null;
 		var multiplicando = getNumberRand();
 		var multiplicador = getNumberRand();
-		const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+		let sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
 		
 		// Verifica se a resposta da pergunta anterior está correta.
 		resposta = handlerInput.requestEnvelope.request.intent.slots.resposta.value;
@@ -254,30 +254,30 @@ const DefineResposta = {
 		// Salva o resultado do jogador anterior e verifica o próximo jogador.
 		if(sessionAttributes.primeiro_jogador === sessionAttributes.jogador_atual) {
 			if(RESULTADO === messages.CERTA_RESPOSTA) {
-				saveSessionAttribute(sessionAttributes, handlerInput, 'primeiro_acertou', sessionAttributes.primeiro_acertou + 1);
+				sessionAttributes.primeiro_acertou = sessionAttributes.primeiro_acertou + 1;
 			}
 			else {
-				saveSessionAttribute(sessionAttributes, handlerInput, 'primeiro_errou', sessionAttributes.primeiro_errou + 1);
+				sessionAttributes.primeiro_errou = sessionAttributes.primeiro_errou + 1;
 			}
 			
 			proximo_jogador = sessionAttributes.segundo_jogador;
-			saveSessionAttribute(sessionAttributes, handlerInput, 'jogador_atual', sessionAttributes.segundo_jogador);
+			sessionAttributes.jogador_atual = sessionAttributes.segundo_jogador;
 		}
 		else {
 			if(RESULTADO === messages.CERTA_RESPOSTA) {
-				saveSessionAttribute(sessionAttributes, handlerInput, 'segundo_acertou', sessionAttributes.segundo_acertou + 1);
+				sessionAttributes.segundo_acertou = sessionAttributes.segundo_acertou + 1;
 			}
 			else {
-				saveSessionAttribute(sessionAttributes, handlerInput, 'segundo_errou', sessionAttributes.segundo_errou + 1);
+				sessionAttributes.segundo_errou = sessionAttributes.segundo_errou + 1;
 			}
 			
 			proximo_jogador = sessionAttributes.primeiro_jogador;
-			saveSessionAttribute(sessionAttributes, handlerInput, 'jogador_atual', sessionAttributes.primeiro_jogador);
+			sessionAttributes.jogador_atual = sessionAttributes.primeiro_jogador;
 		}
 		
 		// Atualiza o contador de perguntas realizadas.
 		if(sessionAttributes.contador_perguntas < QTD_PERGUNTA) {
-			saveSessionAttribute(sessionAttributes, handlerInput, 'contador_perguntas', sessionAttributes.contador_perguntas + 1);
+			sessionAttributes.contador_perguntas = sessionAttributes.contador_perguntas + 1;
 		}
 		else if(sessionAttributes.contador_perguntas >= QTD_PERGUNTA) { // Fala o resultado final e encerra o jogo.
 			var FRASE_FINAL = messages.FIM_RESULTADO.format(sessionAttributes.primeiro_jogador,
@@ -299,6 +299,9 @@ const DefineResposta = {
 			else if(sessionAttributes.primeiro_acertou === sessionAttributes.segundo_acertou) {
 				FRASE_FINAL += messages.FIM_EMPATE;
 			}
+
+			handlerInput.attributesManager.setPersistentAttributes(sessionAttributes);
+			await handlerInput.attributesManager.savePersistentAttributes();
 			
 			return handlerInput.responseBuilder
 				.speak(RESULTADO + b200ms + FRASE_FINAL)
@@ -307,8 +310,11 @@ const DefineResposta = {
 		}
 		
 		// Salva o multiplicando e o multiplicador da pergunta atual.
-		saveSessionAttribute(sessionAttributes, handlerInput, 'multiplicando', multiplicando);
-		saveSessionAttribute(sessionAttributes, handlerInput, 'multiplicador', multiplicador);
+		sessionAttributes.multiplicando = multiplicando;
+		sessionAttributes.multiplicador = multiplicador;
+
+		handlerInput.attributesManager.setPersistentAttributes(sessionAttributes);
+		await handlerInput.attributesManager.savePersistentAttributes();
 		
 		return handlerInput.responseBuilder
 			.speak(RESULTADO + b200ms + messages.PERGUNTA_TABUADA.format(proximo_jogador, multiplicando, multiplicador))

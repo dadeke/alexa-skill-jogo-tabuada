@@ -77,55 +77,6 @@ const IniciaJogoHandler = {
 			}
 			
 			return handlerInput.responseBuilder
-				.speak(messages.PERGUNTA_JOGADOR1)
-				.reprompt(messages.NAO_ENTENDI)
-				.withSimpleCard(messages.NOME_SKILL, messages.PERGUNTA_JOGADOR1)
-				.getResponse();
-		}
-		catch(e) {
-			var TEXTO_FALA = messages.NAO_ENTENDI;
-
-			// Verifica se o jogo já está rodando.
-			if(typeof(sessionAttributes.contador_perguntas) !== 'undefined') {
-				TEXTO_FALA += b200ms + messages.PERGUNTA_TABUADA.format(
-					sessionAttributes.jogador_atual,
-					sessionAttributes.multiplicando,
-					sessionAttributes.multiplicador
-				);
-			}
-			else {
-				console.log(e);
-				console.log(handlerInput);
-			}
-			
-			return handlerInput.responseBuilder
-				.speak(TEXTO_FALA)
-				.reprompt(TEXTO_FALA)
-				.getResponse();
-		}
-	}
-};
-
-const DefineJogadorUmHandler = {
-	canHandle(handlerInput) {
-		return handlerInput.requestEnvelope.request.type === 'IntentRequest'
-			&& handlerInput.requestEnvelope.request.intent.name === 'DefineJogadorUm';
-	},
-	async handle(handlerInput) {
-		let sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
-		
-		try {
-			// Verifica se o jogo já está rodando.
-			if(typeof(sessionAttributes.contador_perguntas) !== 'undefined') {
-				throw new Error('O jogo já está rodando. Não entrar na intenção "DefineJogadorUm" nesse momento.');
-			}
-			
-			sessionAttributes.primeiro_jogador = handlerInput.requestEnvelope.request.intent.slots.primeiro_jogador.value;
-
-			handlerInput.attributesManager.setPersistentAttributes(sessionAttributes);
-			await handlerInput.attributesManager.savePersistentAttributes();
-
-			return handlerInput.responseBuilder
 				.speak(messages.PERGUNTA_JOGADOR2)
 				.reprompt(messages.NAO_ENTENDI)
 				.withSimpleCard(messages.NOME_SKILL, messages.PERGUNTA_JOGADOR2)
@@ -155,10 +106,10 @@ const DefineJogadorUmHandler = {
 	}
 };
 
-const DefineJogadorDoisHandler = {
+const DefineJogadorHandler = {
 	canHandle(handlerInput) {
 		return handlerInput.requestEnvelope.request.type === 'IntentRequest'
-			&& handlerInput.requestEnvelope.request.intent.name === 'DefineJogadorDois';
+			&& handlerInput.requestEnvelope.request.intent.name === 'DefineJogador';
 	},
 	async handle(handlerInput) {
 		var multiplicando = getNumberRand();
@@ -168,7 +119,7 @@ const DefineJogadorDoisHandler = {
 		try {
 			// Verifica se o jogo já está rodando.
 			if(typeof(sessionAttributes.contador_perguntas) !== 'undefined') {
-				throw new Error('O jogo já está rodando. Não entrar na intenção "DefineJogadorDois" nesse momento.');
+				throw new Error('O jogo já está rodando. Não entrar na intenção "DefineJogador" nesse momento.');
 			}
 			
 			/**
@@ -177,7 +128,7 @@ const DefineJogadorDoisHandler = {
 			 * Caso o nome do primeiro jogador já esteja definido: define o nome do segundo jogador.
 			 */
 			if(typeof(sessionAttributes.primeiro_jogador) === 'undefined') {
-				sessionAttributes.primeiro_jogador = handlerInput.requestEnvelope.request.intent.slots.segundo_jogador.value;
+				sessionAttributes.primeiro_jogador = handlerInput.requestEnvelope.request.intent.slots.nome_jogador.value;
 
 				handlerInput.attributesManager.setPersistentAttributes(sessionAttributes);
 				await handlerInput.attributesManager.savePersistentAttributes();
@@ -189,7 +140,7 @@ const DefineJogadorDoisHandler = {
 					.getResponse();
 			}
 			else {
-				sessionAttributes.segundo_jogador = handlerInput.requestEnvelope.request.intent.slots.segundo_jogador.value;
+				sessionAttributes.segundo_jogador = handlerInput.requestEnvelope.request.intent.slots.nome_jogador.value;
 			}
 			
 			// Salva o nome do primeiro jogador como jogador atual.
@@ -447,8 +398,7 @@ exports.handler = Alexa.SkillBuilders.custom()
 	.addRequestHandlers(
 		LaunchRequestHandler,
 		IniciaJogoHandler,
-		DefineJogadorUmHandler,
-		DefineJogadorDoisHandler,
+		DefineJogadorHandler,
 		DefineResposta,
 		HelpIntentHandler,
 		CancelAndStopIntentHandler,

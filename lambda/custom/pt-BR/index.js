@@ -1,8 +1,6 @@
 const Alexa = require('ask-sdk-core');
 const persistenceAdapter = require('ask-sdk-s3-persistence-adapter');
 
-// AINDA EXISTE O BUG DO CATORZE.
-
 const b200ms = ' <break time= "200ms" /> ';
 
 const messages = {

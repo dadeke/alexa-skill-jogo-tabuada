@@ -76,11 +76,23 @@ const IniciaJogoHandler = {
 				throw new Error('O jogo já está rodando. Não entrar na intenção "IniciaJogo" nesse momento.');
 			}
 			
-			return handlerInput.responseBuilder
-				.speak(messages.PERGUNTA_JOGADOR2)
-				.reprompt(messages.NAO_ENTENDI)
-				.withSimpleCard(messages.NOME_SKILL, messages.PERGUNTA_JOGADOR2)
-				.getResponse();
+			/**
+			 * Caso o nome do primeiro jogador já esteja definido: pergunte o nome do segundo jogador.
+			 */
+			if(typeof(sessionAttributes.primeiro_jogador) === 'undefined') {
+				return handlerInput.responseBuilder
+					.speak(messages.PERGUNTA_JOGADOR1)
+					.reprompt(messages.NAO_ENTENDI)
+					.withSimpleCard(messages.NOME_SKILL, messages.PERGUNTA_JOGADOR1)
+					.getResponse();
+			}
+			else {
+				return handlerInput.responseBuilder
+					.speak(messages.PERGUNTA_JOGADOR2)
+					.reprompt(messages.NAO_ENTENDI)
+					.withSimpleCard(messages.NOME_SKILL, messages.PERGUNTA_JOGADOR2)
+					.getResponse();
+			}
 		}
 		catch(e) {
 			var TEXTO_FALA = messages.NAO_ENTENDI;

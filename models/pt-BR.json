@@ -24,6 +24,7 @@
                 {
                     "name": "AMAZON.StopIntent",
                     "samples": [
+                        "cale",
                         "não",
                         "pare com o jogo",
                         "pare o jogo",
@@ -47,6 +48,7 @@
                     "name": "IniciaJogo",
                     "slots": [],
                     "samples": [
+                        "iniciar",
                         "yes",
                         "quero",
                         "sim",
@@ -60,33 +62,20 @@
                     ]
                 },
                 {
-                    "name": "DefineJogadorUm",
+                    "name": "DefineJogador",
                     "slots": [
                         {
-                            "name": "primeiro_jogador",
+                            "name": "nome_jogador",
                             "type": "AMAZON.FirstName"
                         }
                     ],
                     "samples": [
-                        "o primeiro jogador se chama {primeiro_jogador}",
-                        "o nome do primeiro jogador é {primeiro_jogador}",
-                        "o nome dele é {primeiro_jogador}",
-                        "{primeiro_jogador}"
-                    ]
-                },
-                {
-                    "name": "DefineJogadorDois",
-                    "slots": [
-                        {
-                            "name": "segundo_jogador",
-                            "type": "AMAZON.FirstName"
-                        }
-                    ],
-                    "samples": [
-                        "o segundo jogador se chama {segundo_jogador}",
-                        "o nome do segundo jogador é {segundo_jogador}",
-                        "o nome dele é {segundo_jogador}",
-                        "{segundo_jogador}"
+                        "o segundo jogador se chama {nome_jogador}",
+                        "o nome do segundo jogador é {nome_jogador}",
+                        "o primeiro jogador se chama {nome_jogador}",
+                        "o nome do primeiro jogador é {nome_jogador}",
+                        "o nome dele é {nome_jogador}",
+                        "{nome_jogador}"
                     ]
                 },
                 {

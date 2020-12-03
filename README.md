@@ -2,7 +2,7 @@
 
 ### _Gostou desta skill? Considere fazer uma doação para ajudar a apoiar seu desenvolvimento. Muito obrigado!_
 
-[<p align="center">![Doe com PicPay!](https://i.imgur.com/gS4NXEg.png)</p>](https://picpay.me/deividsondamasio)
+[<p align="center">![Doe com Pix!](https://i.imgur.com/gS4NXEg.png)</p>](https://picpay.me/deividsondamasio)
 
 Repositório do código fonte da skill da Alexa: Jogo da Tabuada.
 

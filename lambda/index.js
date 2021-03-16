@@ -1,5 +1,6 @@
 const Alexa = require('ask-sdk-core');
-const persistenceAdapter = require('ask-sdk-s3-persistence-adapter');
+const AWS = require('aws-sdk');
+const DDBAdapter = require('ask-sdk-dynamodb-persistence-adapter');
 
 // Define a quantidade total de perguntas do jogo. Deve ser sempre um número par.
 process.env.QTD_PERGUNTA = 20;
@@ -18,8 +19,13 @@ const ErrorHandler = require('./handlers/ErrorHandler');
 
 exports.handler = Alexa.SkillBuilders.custom()
   .withPersistenceAdapter(
-    new persistenceAdapter.S3PersistenceAdapter({
-      bucketName: process.env.S3_PERSISTENCE_BUCKET,
+    new DDBAdapter.DynamoDbPersistenceAdapter({
+      tableName: process.env.DYNAMODB_PERSISTENCE_TABLE_NAME,
+      createTable: false,
+      dynamoDBClient: new AWS.DynamoDB({
+        apiVersion: 'latest',
+        region: process.env.DYNAMODB_PERSISTENCE_REGION,
+      }),
     }),
   )
   .addRequestHandlers(

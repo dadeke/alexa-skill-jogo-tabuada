@@ -9,10 +9,10 @@
   "author": "DD Tecnologia",
   "license": "MIT",
   "dependencies": {
-    "ask-sdk-core": "^2.0.7",
-    "ask-sdk-model": "^1.4.1",
-    "aws-sdk": "^2.326.0",
-    "ask-sdk-s3-persistence-adapter": "^2.6.0"
+    "ask-sdk-core": "^2.10.1",
+    "ask-sdk-dynamodb-persistence-adapter": "^2.10.0",
+    "ask-sdk-model": "^1.34.1",
+    "aws-sdk": "^2.832.0"
   },
   "devDependencies": {
     "ask-sdk-local-debug": "^1.1.0",

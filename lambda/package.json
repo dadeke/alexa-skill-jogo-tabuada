@@ -13,5 +13,14 @@
     "ask-sdk-model": "^1.4.1",
     "aws-sdk": "^2.326.0",
     "ask-sdk-s3-persistence-adapter": "^2.6.0"
+  },
+  "devDependencies": {
+    "ask-sdk-local-debug": "^1.1.0",
+    "eslint": "6.8.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "6.15.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-prettier": "^3.3.1",
+    "prettier": "^2.2.1"
   }
 }

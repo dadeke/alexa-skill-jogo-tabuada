@@ -1,0 +1,53 @@
+{
+  "manifest": {
+    "publishingInformation": {
+      "locales": {
+        "pt-BR": {
+          "summary": "O Jogo da Tabuada deve ser disputado por dois jogadores. Cada jogador deverá responder o resultado de 10 multiplicações. Aquele que acertar mais, vence o jogo.",
+          "examplePhrases": [
+            "Alexa, abre o Jogo da Tabuada"
+          ],
+          "keywords": [
+            "jogo",
+            "matemática",
+            "tabuada"
+          ],
+          "name": "Jogo da Tabuada",
+          "description": "O Jogo da Tabuada deve ser disputado por dois jogadores. Cada jogador deverá responder o resultado de 10 multiplicações. Aquele que acertar mais respostas, vence o jogo.\n\nDiga \"Alexa, abre o Jogo da Tabuada\". Ela fará uma breve apresentação.\n\nVocê pode contribuir para o código fonte dessa skill no GitHub - https://github.com/dadeke/alexa-skill-jogo-tabuada\n\n\"Porque Deus tanto amou o mundo que deu o seu Filho Unigênito, para que todo o que nele crer não pereça, mas tenha a vida eterna.\" João 3:16",
+          "updatesDescription": "Correções de bugs."
+        }
+      },
+      "automaticDistribution": {
+        "isActive": false
+      },
+      "isAvailableWorldwide": false,
+      "testingInstructions": "Instruções para teste.",
+      "category": "EDUCATION_AND_REFERENCE",
+      "distributionCountries": [
+        "BR"
+      ]
+    },
+    "apis": {
+      "custom": {
+        "endpoint": {
+          "uri": "ask-custom-jogo-tabuada-default"
+        },
+        "interfaces": []
+      }
+    },
+    "manifestVersion": "1.0",
+    "privacyAndCompliance": {
+      "allowsPurchases": false,
+      "locales": {
+        "pt-BR": {
+          "termsOfUseUrl": "",
+          "privacyPolicyUrl": ""
+        }
+      },
+      "containsAds": false,
+      "isExportCompliant": true,
+      "isChildDirected": false,
+      "usesPersonalInfo": false
+    }
+  }
+}

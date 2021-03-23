@@ -26,6 +26,8 @@
           "name": "AMAZON.StopIntent",
           "samples": [
             "não",
+            "pause",
+            "pausar",
             "pare com o jogo",
             "pare o jogo",
             "pare",
@@ -35,63 +37,61 @@
         },
         {
           "name": "AMAZON.NavigateHomeIntent",
-          "samples": [
-            "abre jogo da tabuada",
-            "abri jogo da tabuada",
-            "abra jogo da tabuada",
-            "abre o jogo da tabuada",
-            "abri o jogo da tabuada",
-            "abra o jogo da tabuada"
-          ]
+          "samples": []
         },
         {
           "name": "AMAZON.FallbackIntent",
           "samples": []
         },
         {
-          "name": "IniciaJogo",
+          "name": "StartGame",
           "slots": [],
           "samples": [
-            "iniciar",
-            "yes",
             "quero",
+            "quero iniciar o jogo",
+            "yes",
             "sim",
             "inicie",
+            "iniciar",
             "inicie o jogo",
+            "iniciar jogo",
             "pode começar o jogo",
-            "comece o jogo",
             "começar",
-            "quero iniciar o jogo",
-            "iniciar jogo"
+            "comece o jogo",
+            "pode",
+            "positivo",
+            "afirmativo"
           ]
         },
         {
-          "name": "DefineJogador",
+          "name": "SetPlayer",
           "slots": [
             {
-              "name": "nome_jogador",
+              "name": "player_name",
               "type": "AMAZON.FirstName"
             }
           ],
           "samples": [
-            "o segundo jogador se chama {nome_jogador}",
-            "o nome do segundo jogador é {nome_jogador}",
-            "o primeiro jogador se chama {nome_jogador}",
-            "o nome do primeiro jogador é {nome_jogador}",
-            "o nome dele é {nome_jogador}",
-            "{nome_jogador}"
+            "o primeiro jogador se chama {player_name}",
+            "o nome do primeiro jogador é {player_name}",
+            "o segundo jogador se chama {player_name}",
+            "o nome do segundo jogador é {player_name}",
+            "o nome dele é {player_name}",
+            "meu nome é {player_name}",
+            "{player_name}"
           ]
         },
         {
-          "name": "DefineResposta",
+          "name": "SetAnswer",
           "slots": [
             {
-              "name": "resposta",
+              "name": "answer",
               "type": "AMAZON.NUMBER"
             }
           ],
           "samples": [
-            "{resposta}"
+            "{answer}",
+            "é {answer}"
           ]
         }
       ],

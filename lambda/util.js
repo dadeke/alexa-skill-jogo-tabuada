@@ -1,6 +1,6 @@
 /**
- * Retorna um número randômico de 0 até 10.
+ * Retorna um número aleatório entre 1 e 10.
  */
 module.exports.getNumberRand = function getNumberRand() {
-  return Math.floor(Math.random() * 11);
+  return Math.floor(Math.random() * 10 + 1);
 };

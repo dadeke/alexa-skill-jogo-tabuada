@@ -1,5 +1,6 @@
 const Alexa = require('ask-sdk-core');
-const speaks = require('../speakStrings');
+
+const NoUnderstand = require('../responses/NoUnderstandResponse');
 
 /* *
  * FallbackIntent é acionado quando um usuário diz algo que não foi mapeado
@@ -16,15 +17,14 @@ const FallbackIntentHandler = {
         'AMAZON.FallbackIntent'
     );
   },
-  handle(handlerInput) {
-    return handlerInput.responseBuilder
-      .speak(speaks.FALLBACK + speaks.OPTIONS)
-      .withStandardCard(
-        speaks.SKILL_NAME,
-        speaks.FALLBACK + speaks.OPTIONS_CARD,
-      )
-      .reprompt(speaks.OPTIONS)
-      .getResponse();
+  async handle(handlerInput) {
+    const response = await NoUnderstand.getResponse(
+      handlerInput,
+      'AMAZON.FallbackIntent',
+      'Fallback',
+    );
+
+    return response;
   },
 };
 

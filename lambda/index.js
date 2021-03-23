@@ -2,13 +2,13 @@ const Alexa = require('ask-sdk-core');
 const AWS = require('aws-sdk');
 const DDBAdapter = require('ask-sdk-dynamodb-persistence-adapter');
 
-// Define a quantidade total de perguntas do jogo. Deve ser sempre um número par.
-process.env.QTD_PERGUNTA = 20;
+// Define a quantidade total de questões. Deve ser sempre um número par.
+process.env.QTY_CALCULATIONS = 20;
 
 const LaunchRequestHandler = require('./handlers/LaunchRequestHandler');
-const IniciaJogoHandler = require('./handlers/IniciaJogoHandler');
-const DefineJogadorHandler = require('./handlers/DefineJogadorHandler');
-const DefineRespostaHandler = require('./handlers/DefineRespostaHandler');
+const StartGameIntentHandler = require('./handlers/StartGameIntentHandler');
+const SetPlayerIntentHandler = require('./handlers/SetPlayerIntentHandler');
+const SetAnswerIntentHandler = require('./handlers/SetAnswerIntentHandler');
 const HelpIntentHandler = require('./handlers/HelpIntentHandler');
 const CancelAndStopIntentHandler = require('./handlers/CancelAndStopIntentHandler');
 const FallbackIntentHandler = require('./handlers/FallbackIntentHandler');
@@ -30,9 +30,9 @@ exports.handler = Alexa.SkillBuilders.custom()
   )
   .addRequestHandlers(
     LaunchRequestHandler,
-    IniciaJogoHandler,
-    DefineJogadorHandler,
-    DefineRespostaHandler,
+    StartGameIntentHandler,
+    SetPlayerIntentHandler,
+    SetAnswerIntentHandler,
     HelpIntentHandler,
     CancelAndStopIntentHandler,
     FallbackIntentHandler,

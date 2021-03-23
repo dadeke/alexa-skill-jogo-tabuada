@@ -1,6 +1,8 @@
 const Alexa = require('ask-sdk-core');
 
-const { speaks, b200ms } = require('../speakStrings');
+const { speaks } = require('../speakStrings');
+
+const NoUnderstand = require('../responses/NoUnderstandResponse');
 
 const HelpIntentHandler = {
   canHandle(handlerInput) {
@@ -9,44 +11,54 @@ const HelpIntentHandler = {
       Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.HelpIntent'
     );
   },
-  handle(handlerInput) {
-    const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+  async handle(handlerInput) {
+    const { attributesManager } = handlerInput;
+    const sessionAttributes = attributesManager.getSessionAttributes();
 
     try {
+      const lastIntent = Object.prototype.hasOwnProperty.call(
+        sessionAttributes,
+        'last_intent',
+      )
+        ? sessionAttributes.last_intent
+        : false;
+      const questionCount = Object.prototype.hasOwnProperty.call(
+        sessionAttributes,
+        'question_count',
+      )
+        ? sessionAttributes.question_count
+        : false;
+
       // Verifica se o jogo já está rodando.
-      if (typeof sessionAttributes.contador_perguntas !== 'undefined') {
+      if (lastIntent === false && questionCount !== false) {
         throw new Error(
-          'O jogo já está rodando. Não entrar na intenção "AMAZON.HelpIntent" nesse momento.',
+          'The game is already running. Do not enter here at this time.',
         );
       }
 
-      return handlerInput.responseBuilder
-        .speak(speaks.INSTRUCOES.format(process.env.QTD_PERGUNTA / 2))
-        .reprompt(speaks.PERGUNTA_INICIAR)
-        .getResponse();
-    } catch (e) {
-      let TEXTO_FALA = speaks.NAO_ENTENDI;
+      attributesManager.setSessionAttributes({
+        last_intent: 'AMAZON.HelpIntent',
+        question_count: false,
+      });
 
-      // Verifica se o jogo já está rodando.
-      if (typeof sessionAttributes.contador_perguntas !== 'undefined') {
-        TEXTO_FALA +=
-          b200ms +
-          speaks.PERGUNTA_TABUADA.format(
-            sessionAttributes.jogador_atual,
-            sessionAttributes.multiplicando,
-            sessionAttributes.multiplicador,
-          );
-      } else {
-        // eslint-disable-next-line no-console
-        console.log(e);
-        // eslint-disable-next-line no-console
-        console.log(handlerInput);
-      }
+      const calculations = process.env.QTY_CALCULATIONS / 2;
 
       return handlerInput.responseBuilder
-        .speak(TEXTO_FALA)
-        .reprompt(TEXTO_FALA)
+        .speak(speaks.INSTRUCTIONS.format(calculations))
+        .withSimpleCard(
+          speaks.SKILL_NAME,
+          speaks.INSTRUCTIONS_CARD.format(calculations),
+        )
+        .reprompt(speaks.ASK_START)
         .getResponse();
+    } catch (error) {
+      const response = await NoUnderstand.getResponse(
+        handlerInput,
+        'HelpIntentHandler',
+        error,
+      );
+
+      return response;
     }
   },
 };

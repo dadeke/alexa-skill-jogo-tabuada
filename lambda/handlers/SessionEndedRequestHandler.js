@@ -4,9 +4,7 @@ const SessionEndedRequestHandler = {
   },
   handle(handlerInput) {
     // eslint-disable-next-line no-console
-    console.log(
-      `Sessão encerrada com essa reação: ${handlerInput.requestEnvelope.request.reason}`,
-    );
+    console.log('Session ended:', JSON.stringify(handlerInput.requestEnvelope));
 
     return handlerInput.responseBuilder.getResponse();
   },

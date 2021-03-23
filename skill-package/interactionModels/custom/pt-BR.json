@@ -45,6 +45,10 @@
           ]
         },
         {
+          "name": "AMAZON.FallbackIntent",
+          "samples": []
+        },
+        {
           "name": "IniciaJogo",
           "slots": [],
           "samples": [

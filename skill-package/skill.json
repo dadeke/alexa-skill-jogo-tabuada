@@ -13,8 +13,8 @@
             "tabuada"
           ],
           "name": "Jogo da Tabuada",
-          "description": "O Jogo da Tabuada deve ser disputado por dois jogadores. Cada jogador deverá responder o resultado de 10 multiplicações. Aquele que acertar mais respostas, vence o jogo.\n\nDiga \"Alexa, abre o Jogo da Tabuada\". Ela fará uma breve apresentação.\n\nVocê pode contribuir para o código fonte dessa skill no GitHub - https://github.com/dadeke/alexa-skill-jogo-tabuada\n\n\"Porque Deus tanto amou o mundo que deu o seu Filho Unigênito, para que todo o que nele crer não pereça, mas tenha a vida eterna.\" João 3:16",
-          "updatesDescription": "Correções de bugs."
+          "description": "O Jogo da Tabuada deve ser disputado por dois jogadores. Cada jogador deverá responder o resultado de 10 multiplicações. Aquele que acertar mais respostas, vence o jogo.\n\nDiga \"Alexa, abre o Jogo da Tabuada\". Ela fará uma breve apresentação.\n\nQuando essa skill não entender sua resposta, tente novamente usando o verbo \"é\".\nExemplos:\n\"é 3\"\n\"é 5\"\n\"é 15\"\n\"é 100\"\n\n----------------\n\nGostou da skill Jogo da Tabuada? Por favor, deixe uma avaliação! Muito obrigado!\n\nPara enviar sugestões ou feedbacks sobre esta skill, entre em contato através do e-mail: oi@dd.tec.br\n\n----------------\n\nVocê pode visualizar o histórico de atualizações e contribuir para o código fonte desta skill no GitHub - https://github.com/dadeke/alexa-skill-jogo-tabuada\n\n----------------\n\n\"Porque Deus tanto amou o mundo que deu o seu Filho Unigênito, para que todo o que nele crer não pereça, mas tenha a vida eterna.\" João 3:16",
+          "updatesDescription": "- Melhorias e correções apontadas por vocês nos comentários. Muito obrigado pelos feedbacks!"
         }
       },
       "automaticDistribution": {
@@ -23,6 +23,7 @@
       "isAvailableWorldwide": false,
       "testingInstructions": "Instruções para teste.",
       "category": "EDUCATION_AND_REFERENCE",
+      "distributionMode": "PUBLIC",
       "distributionCountries": [
         "BR"
       ]
@@ -40,8 +41,8 @@
       "allowsPurchases": false,
       "locales": {
         "pt-BR": {
-          "termsOfUseUrl": "",
-          "privacyPolicyUrl": ""
+          "termsOfUseUrl": "https://github.com/dadeke/alexa-skill-jogo-tabuada/blob/master/tos_pt-br.md#termos-de-servi%C3%A7o-da-dd-tecnologia",
+          "privacyPolicyUrl": "https://github.com/dadeke/alexa-skill-jogo-tabuada/blob/master/privacy-policy_pt-br.md#pol%C3%ADtica-de-privacidade-da-dd-tecnologia"
         }
       },
       "containsAds": false,
